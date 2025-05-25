@@ -5,77 +5,106 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Report Results</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Results - Hotel Management System</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h2>Report: ${reportName}</h2>
+    <div class="background-container"></div>
+    <div class="content-wrapper">
+        <header class="header">
+            <h1>Hotel Management System</h1>
+        </header>
+        <div class="container">
+            <h2>Report: ${reportName}</h2>
 
-    <c:if test="${not empty error}">
-        <p style="color:red">${error}</p>
-    </c:if>
+            <c:if test="${not empty error}">
+                <p class="error">${error}</p>
+            </c:if>
 
-    <%
-        Object result = request.getAttribute("reportResult");
-        Object revenue = request.getAttribute("revenue");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            <%
+                Object result = request.getAttribute("reportResult");
+                Object revenue = request.getAttribute("revenue");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-        if (result instanceof List) {
-            List<?> list = (List<?>) result;
-            if (!list.isEmpty() && list.get(0) instanceof Reservation) {
-    %>
-                <!-- Date Range report -->
-                <table border="1" cellpadding="5" cellspacing="0">
-                  <tr>
-                    <th>ID</th><th>Customer Name</th><th>Room Number</th>
-                    <th>Check-In</th><th>Check-Out</th><th>Total Amount</th>
-                  </tr>
-                  <%
-                      for (Reservation r : (List<Reservation>) list) {
-                  %>
-                  <tr>
-                    <td><%= r.getReservationId() %></td>
-                    <td><%= r.getCustomerName() %></td>
-                    <td><%= r.getRoomNumber() %></td>
-                    <td><%= sdf.format(r.getCheckIn()) %></td>
-                    <td><%= sdf.format(r.getCheckOut()) %></td>
-                    <td><%= r.getTotalAmount() %></td>
-                  </tr>
-                  <%
-                      }
-                  %>
-                </table>
-    <%
-            } else if (!list.isEmpty() && list.get(0) instanceof Map.Entry) {
-    %>
-                <!-- Most booked rooms report -->
-                <table border="1" cellpadding="5" cellspacing="0">
-                  <tr><th>Room Number</th><th>Booking Count</th></tr>
-                  <%
-                      for (Map.Entry<String, Integer> entry : ((Map<String,Integer>)result).entrySet()) {
-                  %>
-                  <tr>
-                    <td><%= entry.getKey() %></td>
-                    <td><%= entry.getValue() %></td>
-                  </tr>
-                  <%
-                      }
-                  %>
-                </table>
-    <%
-            }
-        } else if (revenue != null) {
-    %>
-            <p>Total Revenue: $<%= revenue %></p>
-    <%
-        } else {
-    %>
-            <p>No data found for the selected report.</p>
-    <%
-        }
-    %>
+                if (result instanceof List) {
+                    List<?> list = (List<?>) result;
+                    if (!list.isEmpty() && list.get(0) instanceof Reservation) {
+            %>
+                        <%-- Date Range report --%>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Customer Name</th>
+                                    <th>Room Number</th>
+                                    <th>Check-In</th>
+                                    <th>Check-Out</th>
+                                    <th>Total Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%
+                                    for (Reservation r : (List<Reservation>) list) {
+                                %>
+                                <tr>
+                                    <td><%= r.getReservationId() %></td>
+                                    <td><%= r.getCustomerName() %></td>
+                                    <td><%= r.getRoomNumber() %></td>
+                                    <td><%= sdf.format(r.getCheckIn()) %></td>
+                                    <td><%= sdf.format(r.getCheckOut()) %></td>
+                                    <td><%= r.getTotalAmount() %></td>
+                                </tr>
+                                <%
+                                    }
+                                %>
+                            </tbody>
+                        </table>
+            <%
+                    } else if (!list.isEmpty() && list.get(0) instanceof Map.Entry) {
+            %>
+                        <%-- Most booked rooms report --%>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Room Number</th>
+                                    <th>Booking Count</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%
+                                    for (Map.Entry<String, Integer> entry : ((Map<String,Integer>)result).entrySet()) {
+                                %>
+                                <tr>
+                                    <td><%= entry.getKey() %></td>
+                                    <td><%= entry.getValue() %></td>
+                                </tr>
+                                <%
+                                    }
+                                %>
+                            </tbody>
+                        </table>
+            <%
+                    }
+                } else if (revenue != null) {
+            %>
+                    <%-- Total Revenue report --%>
+                    <div class="total-revenue-display">
+                        <p>Total Revenue: $<%= revenue %></p>
+                    </div>
+            <%
+                } else {
+            %>
+                    <p>No data found for the selected report.</p>
+            <%
+                }
+            %>
 
-    <br/>
-    <a href="reports.jsp">Back to Reports</a> |
-    <a href="index.jsp">Home</a>
+            <nav>
+                <a href="reports.jsp">Back to Reports</a>
+                <a href="index.jsp">Home</a>
+            </nav>
+        </div>
+    </div>
 </body>
 </html>

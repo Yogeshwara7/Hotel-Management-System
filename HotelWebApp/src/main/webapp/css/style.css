@@ -5,97 +5,217 @@
     box-sizing: border-box;
 }
 
+:root {
+    --primary-color: #4a3b33; /* Deep Brown from wood/wall (still used for form labels) */
+    --secondary-color: #2a7b8a; /* Teal from pillows */
+    --accent-color: #c0392b; /* Slightly darker red for delete */
+    --success-color: #27ae60;
+    --background-color: #f0f2f5; /* Lighter background for content contrast */
+    --card-background: rgba(255, 255, 255, 0.9); /* Semi-transparent white for content */
+    --text-color: white; /* General text color */
+    --border-color: #ccc; /* Lighter border */
+    --shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* More prominent shadow */
+    --transition: all 0.4s ease;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    color: #2c3e50;
-    background-color: #f8f9fa;
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    padding: 0;
+    margin: 0;
+    min-height: 100vh;
+    /* Background Image Styles (Placeholder) */
+    /* We will add blur using a different method */
+    background-image: none; /* Remove direct background image from body */
+}
+
+/* Container for blurred background */
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Ensure it's behind content */
+    background-image: url('https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Replace with your image URL or path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.background-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3); /* Optional: Add a subtle overlay */
+    backdrop-filter: blur(5px); /* Blur effect */
+    -webkit-backdrop-filter: blur(5px); /* For Safari */
+}
+
+/* Content Wrapper */
+.content-wrapper {
+    position: relative; /* Allows z-index to work */
+    z-index: 1; /* Ensure content is above background */
+}
+
+/* Header */
+.header {
+    background-color: #5d4a3d; /* A warm brown from the image */
+    color: white;
+    padding: 1rem 0;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header h1 {
+    color: white;
+    text-align: center;
+    font-size: 2.2rem;
+    margin: 0;
+    padding: 0.8rem;
+}
+
+/* Main Container (for forms, tables, etc.) */
+.container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
 }
 
 /* Navigation */
 nav {
-    background-color: #ffffff;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 2rem;
+    background-color: rgb(215, 207, 207); /* Changed to solid white */
+    padding: 1.2rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    margin: 2rem auto;
+    max-width: 700px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    border: 1px solid var(--border-color);
 }
 
 nav a {
-    margin-right: 20px;
     text-decoration: none;
-    color: #3498db;
+    color: var(--secondary-color);
     font-weight: 500;
-    transition: color 0.3s ease;
-    padding: 8px 16px;
-    border-radius: 4px;
+    padding: 0.9rem 1.6rem;
+    border-radius: 8px;
+    transition: var(--transition);
+    background-color: rgba(42, 123, 138, 0.1);
+    border: 1px solid rgba(42, 123, 138, 0.2);
 }
 
 nav a:hover {
-    color: #2980b9;
-    background-color: #f0f7ff;
+    color: white;
+    background-color: var(--secondary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* Headings */
 h1, h2 {
-    color: #2c3e50;
+    color: rgb(20, 19, 19); /* Changed to white */
     margin-bottom: 1.5rem;
     font-weight: 600;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.8rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+h2 {
+    font-size: 2rem;
+    color: white; /* Changed to white */
+    margin-bottom: 1.8rem;
 }
 
 /* Forms */
 form {
-    background-color: #ffffff;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 2rem;
+    background-color: var(--card-background);
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    margin: 2rem auto;
+    max-width: 600px;
+    transition: var(--transition);
+    border: 1px solid var(--border-color);
+}
+
+form:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
+}
+
+.form-group {
+    margin-bottom: 1.8rem;
 }
 
 label {
-    display: inline-block;
-    width: 120px;
-    margin-top: 12px;
+    display: block;
+    margin-bottom: 0.6rem;
     font-weight: 500;
-    color: #34495e;
+    color: var(--primary-color); /* Keep primary color for labels */
+    font-size: 1.1rem;
 }
 
 input, select {
     width: 100%;
-    max-width: 300px;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-    transition: border-color 0.3s ease;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1.1rem;
+    transition: var(--transition);
+    background-color: white;
 }
 
 input:focus, select:focus {
     outline: none;
-    border-color: #3498db;
-    box-shadow: 0 0 0 2px rgba(52,152,219,0.2);
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 4px rgba(42, 123, 138, 0.3);
 }
 
 /* Buttons */
 button {
-    background-color: #3498db;
+    background-color: var(--secondary-color);
     color: white;
-    padding: 10px 20px;
+    padding: 1rem 2rem;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    transition: background-color 0.3s ease;
-    margin-right: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: var(--transition);
+    width: 100%;
+    margin-top: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 button:hover {
-    background-color: #2980b9;
+    background-color: #226a76;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Delete Button */
+.delete-button {
+    background-color: var(--accent-color);
+}
+
+.delete-button:hover {
+    background-color: #a93124;
 }
 
 /* Tables */
@@ -103,64 +223,191 @@ table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    margin: 20px 0;
-    background-color: #ffffff;
-    border-radius: 8px;
+    margin: 2rem 0;
+    background-color: var(--card-background);
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
 }
 
 th {
-    background-color: #f8f9fa;
-    color: #2c3e50;
+    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+    color: rgb(16, 14, 14); /* Changed to white */
     font-weight: 600;
     text-align: left;
-    padding: 12px 15px;
-    border-bottom: 2px solid #e9ecef;
+    padding: 1.2rem;
+    font-size: 1.1rem;
 }
 
 td {
-    padding: 12px 15px;
-    border-bottom: 1px solid #e9ecef;
-    color: #34495e;
+    padding: 1.2rem;
+    border-bottom: 1px solid var(--border-color);
+    color: #333; /* Changed to a darker color for visibility */
 }
 
 tr:hover {
-    background-color: #f8f9fa;
+    background-color: rgba(42, 123, 138, 0.08);
+}
+
+/* Report Sections */
+.report-section {
+    background-color: var(--card-background);
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+    transition: var(--transition);
+    border: 1px solid var(--border-color);
+}
+
+.report-section:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.report-section h2 {
+    color: var(--primary-color); /* Changed back to primary color for readability */
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.report-section form {
+    background: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* Success Messages */
+.success {
+    color: white; /* Text color white */
+    font-size: 1rem;
+    margin: 1.5rem 0;
+    padding: 0.8rem 1.2rem;
+    background-color: #3a2e28; /* Darker background */
+    border: 1px solid var(--success-color); /* Border using success color */
+    border-radius: 6px;
+    opacity: 0; /* Hidden by default */
+    animation: fadeIn 0.5s ease-out forwards;
 }
 
 /* Error Messages */
 .error {
-    color: #e74c3c;
-    font-size: 14px;
-    margin-top: 5px;
+    color: var(--accent-color);
+    font-size: 1rem;
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background-color: rgba(231, 76, 60, 0.1);
+    border-radius: 6px;
+    border-left: 5px solid var(--accent-color);
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Action/Pop-up Messages */
+.action-message {
+    position: fixed;
+    top: 25px; /* Slightly lower from the top */
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
+    z-index: 1050; /* Above other content */
+    padding: 18px 30px; /* Increased padding */
+    border-radius: 10px; /* More rounded corners */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* More prominent shadow */
+    font-size: 1.1rem; /* Slightly larger font size */
+    font-weight: 500;
+    color: white;
+    background-color: rgba(44, 62, 80, 0.98); /* Darker semi-transparent background */
+    /* Removed border for a cleaner look */
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out forwards;
+    max-width: 450px; /* Slightly wider */
+    text-align: center;
+}
+
+/* Specific colors for action messages */
+.action-message.success {
+    background-color: rgba(39, 174, 96, 0.98); /* Green for success */
+}
+
+.action-message.error {
+    background-color: rgba(231, 76, 60, 0.98); /* Red for error */
+}
+
+/* Total Revenue Display */
+.total-revenue-display {
+    font-size: 1.8rem; /* Larger font size */
+    font-weight: 600; /* Bolder text */
+    color: var(--primary-color); /* Use primary color */
+    margin: 2rem auto;
+    text-align: center;
+    padding: 1.5rem;
+    background-color: var(--card-background); /* Card background */
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    max-width: 400px; /* Limit width */
+    border: 1px solid var(--border-color);
+    animation: fadeIn 0.5s ease-out;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    body {
-        padding: 10px;
+    .container {
+        padding: 0 1rem;
     }
     
     nav {
-        padding: 0.5rem;
+        flex-direction: column;
+        padding: 1rem;
+        gap: 0.8rem;
     }
     
     nav a {
-        display: block;
-        margin: 5px 0;
+        text-align: center;
+        padding: 0.7rem 1rem;
     }
     
     form {
-        padding: 1rem;
+        padding: 1.8rem;
     }
     
-    input, select {
-        max-width: 100%;
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    h2 {
+        font-size: 1.6rem;
+    }
+    
+    .report-section {
+        padding: 1.8rem;
     }
     
     table {
         display: block;
         overflow-x: auto;
     }
+    
+    th, td {
+        padding: 1rem;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+form, .report-section, table, .error, .success {
+    animation: fadeIn 0.5s ease-out;
 }

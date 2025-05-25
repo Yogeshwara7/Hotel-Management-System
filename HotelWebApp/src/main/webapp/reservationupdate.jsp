@@ -1,25 +1,61 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<!DOCTYPE html>
 <html>
-<head><title>Update Reservation</title></head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Reservation - Hotel Management System</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
 <body>
-<h2>Update Reservation</h2>
-<form action="UpdateReservationServlet" method="post">
-    Reservation ID: <input type="number" name="reservationId" required /><br/><br/>
-    Customer Name: <input type="text" name="customerName" required /><br/><br/>
-    Room Number: <input type="text" name="roomNumber" required /><br/><br/>
-    Check-In Date: <input type="date" name="checkIn" required /><br/><br/>
-    Check-Out Date: <input type="date" name="checkOut" required /><br/><br/>
-    Total Amount: <input type="number" step="0.01" name="totalAmount" required /><br/><br/>
-    <input type="submit" value="Update Reservation" />
-</form>
+    <div class="background-container"></div>
+    <div class="content-wrapper">
+        <header class="header">
+            <h1>Hotel Management System</h1>
+        </header>
+        <div class="container">
+            <h2>Update Reservation</h2>
+            <form action="UpdateReservationServlet" method="post">
+                <div class="form-group">
+                    <label for="reservationId">Reservation ID:</label>
+                    <input type="number" id="reservationId" name="reservationId" required />
+                </div>
+                <div class="form-group">
+                    <label for="customerName">Customer Name:</label>
+                    <input type="text" id="customerName" name="customerName" required />
+                </div>
+                <div class="form-group">
+                    <label for="roomNumber">Room Number:</label>
+                    <input type="text" id="roomNumber" name="roomNumber" required />
+                </div>
+                <div class="form-group">
+                    <label for="checkIn">Check-In Date:</label>
+                    <input type="date" id="checkIn" name="checkIn" required />
+                </div>
+                <div class="form-group">
+                    <label for="checkOut">Check-Out Date:</label>
+                    <input type="date" id="checkOut" name="checkOut" required />
+                </div>
+                <div class="form-group">
+                    <label for="totalAmount">Total Amount:</label>
+                    <input type="number" id="totalAmount" step="0.01" name="totalAmount" required />
+                </div>
+                <button type="submit">Update Reservation</button>
+            </form>
 
-<c:if test="${not empty error}">
-    <p style="color:red">${error}</p>
-</c:if>
-<c:if test="${not empty message}">
-    <p style="color:green">${message}</p>
-</c:if>
+            <c:if test="${not empty error and not empty fn:trim(error)}">
+                <p class="action-message error">${error}</p>
+            </c:if>
+            <c:if test="${not empty message and not empty fn:trim(message)}">
+                <p class="action-message success">${message}</p>
+            </c:if>
 
-<a href="index.jsp">Back to Home</a>
+            <nav>
+                <a href="index.jsp">Back to Home</a>
+            </nav>
+        </div>
+    </div>
 </body>
 </html>

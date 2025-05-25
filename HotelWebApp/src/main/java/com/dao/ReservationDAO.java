@@ -122,4 +122,23 @@ public class ReservationDAO {
         }
         return revenue;
     }
+
+    // Check room availability
+    public boolean isRoomAvailable(String roomNumber, java.util.Date checkInDate, java.util.Date checkOutDate) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM Reservations WHERE RoomNumber = ? AND ((CheckIn <= ? AND CheckOut >= ?) OR (CheckIn <= ? AND CheckOut >= ?))";
+        try (Connection con = DBUtil.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, roomNumber);
+            ps.setDate(2, new java.sql.Date(checkOutDate.getTime()));
+            ps.setDate(3, new java.sql.Date(checkInDate.getTime()));
+            ps.setDate(4, new java.sql.Date(checkOutDate.getTime())); // Added to cover the second overlap condition
+            ps.setDate(5, new java.sql.Date(checkInDate.getTime())); // Added to cover the second overlap condition
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) == 0; // If count is 0, room is available
+                }
+            }
+        }
+        return false; // Assume not available on error or no result
+    }
 }

@@ -8,6 +8,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Reservation - Hotel Management System</title>
     <link rel="stylesheet" href="css/style.css">
+    <script>
+        function calculateAmount() {
+            const roomNumber = document.getElementById('roomNumber').value;
+            const amountField = document.getElementById('totalAmount');
+            
+            if (roomNumber) {
+                const roomNum = parseInt(roomNumber);
+                let amount = 0;
+                
+                if (roomNum >= 100 && roomNum <= 199) {
+                    amount = 1000;
+                } else if (roomNum >= 200 && roomNum <= 299) {
+                    amount = 1500;
+                } else if (roomNum >= 300 && roomNum <= 399) {
+                    amount = 2200;
+                }
+                
+                amountField.value = amount;
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="background-container"></div>
@@ -24,7 +45,7 @@
                 </div>
                 <div class="form-group">
                     <label for="roomNumber">Room Number:</label>
-                    <input type="text" id="roomNumber" name="roomNumber" required />
+                    <input type="text" id="roomNumber" name="roomNumber" required onchange="calculateAmount()" />
                 </div>
                 <div class="form-group">
                     <label for="checkIn">Check-In Date:</label>
@@ -36,7 +57,7 @@
                 </div>
                 <div class="form-group">
                     <label for="totalAmount">Total Amount:</label>
-                    <input type="number" id="totalAmount" step="0.01" name="totalAmount" required />
+                    <input type="number" id="totalAmount" step="0.01" name="totalAmount" required readonly />
                 </div>
                 <button type="submit">Add Reservation</button>
             </form>

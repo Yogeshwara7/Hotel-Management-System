@@ -37,6 +37,15 @@ public class AddReservationServlet extends HttpServlet {
                 return;
             }
 
+            ReservationDAO dao = new ReservationDAO();
+
+            // Check for room availability
+            if (!dao.isRoomAvailable(roomNumber, checkIn, checkOut)) {
+                request.setAttribute("error", "Room " + roomNumber + " is already occupied for the selected dates.");
+                request.getRequestDispatcher("reservationadd.jsp").forward(request, response);
+                return;
+            }
+
             Reservation r = new Reservation();
             r.setCustomerName(customerName);
             r.setRoomNumber(roomNumber);
@@ -44,7 +53,6 @@ public class AddReservationServlet extends HttpServlet {
             r.setCheckOut(checkOut);
             r.setTotalAmount(totalAmount);
 
-            ReservationDAO dao = new ReservationDAO();
             if (dao.addReservation(r)) {
                 request.setAttribute("message", "Reservation added successfully.");
             } else {

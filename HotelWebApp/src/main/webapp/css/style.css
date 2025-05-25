@@ -309,31 +309,48 @@ tr:hover {
 /* Action/Pop-up Messages */
 .action-message {
     position: fixed;
-    top: 25px; /* Slightly lower from the top */
-    left: 50%;
-    transform: translateX(-50%); /* Center horizontally */
-    z-index: 1050; /* Above other content */
-    padding: 18px 30px; /* Increased padding */
-    border-radius: 10px; /* More rounded corners */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* More prominent shadow */
-    font-size: 1.1rem; /* Slightly larger font size */
+    top: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-size: 16px;
     font-weight: 500;
-    color: white;
-    background-color: rgba(44, 62, 80, 0.98); /* Darker semi-transparent background */
-    /* Removed border for a cleaner look */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
     opacity: 0;
-    animation: fadeIn 0.5s ease-out forwards;
-    max-width: 450px; /* Slightly wider */
-    text-align: center;
+    transform: translateY(-20px);
+    animation: showMessage 15s ease forwards;
+    animation-fill-mode: forwards;
+    pointer-events: none;
 }
 
-/* Specific colors for action messages */
+@keyframes showMessage {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    2% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    95% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
 .action-message.success {
-    background-color: rgba(39, 174, 96, 0.98); /* Green for success */
+    background-color: rgba(40, 167, 69, 0.95);
+    color: white;
 }
 
 .action-message.error {
-    background-color: rgba(231, 76, 60, 0.98); /* Red for error */
+    background-color: rgba(220, 53, 69, 0.95);
+    color: white;
 }
 
 /* Total Revenue Display */

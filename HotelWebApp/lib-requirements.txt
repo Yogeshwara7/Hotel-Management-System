@@ -1,0 +1,27 @@
+# Required JAR files for WEB-INF/lib directory
+
+# Servlet and JSP APIs
+javax.servlet-api-4.0.1.jar
+javax.servlet.jsp-api-2.3.3.jar
+javax.servlet.jsp.jstl-api-1.2.2.jar
+
+# JSTL Implementation
+taglibs-standard-impl-1.2.5.jar
+taglibs-standard-spec-1.2.5.jar
+
+# Database
+mysql-connector-java-8.0.27.jar
+
+# Logging
+log4j-api-2.14.1.jar
+log4j-core-2.14.1.jar
+
+# Security
+bcrypt-0.4.3.jar
+
+# Testing (if needed for development)
+junit-4.13.2.jar
+mockito-core-3.12.4.jar
+
+# Note: These JAR files can be downloaded from Maven Central Repository:
+# https://repo1.maven.org/maven2/ 

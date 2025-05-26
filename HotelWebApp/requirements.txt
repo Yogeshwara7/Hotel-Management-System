@@ -1,0 +1,32 @@
+# Java Dependencies
+jdk>=8.0
+maven>=3.6.0
+
+# Web Server
+tomcat>=9.0.0
+
+# Database
+mysql>=8.0.0
+
+# Project Dependencies
+javax.servlet-api>=4.0.1
+javax.servlet.jsp-api>=2.3.3
+javax.servlet.jsp.jstl-api>=1.2.2
+taglibs-standard-impl>=1.2.5
+taglibs-standard-spec>=1.2.5
+mysql-connector-java>=8.0.27
+
+# Build Tools
+maven-compiler-plugin>=3.8.1
+maven-war-plugin>=3.3.2
+
+# Testing Dependencies
+junit>=4.13.2
+mockito-core>=3.12.4
+
+# Logging
+log4j-api>=2.14.1
+log4j-core>=2.14.1
+
+# Security
+bcrypt>=0.4.3 

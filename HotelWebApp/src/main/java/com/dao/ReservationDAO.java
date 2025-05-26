@@ -123,6 +123,23 @@ public class ReservationDAO {
         return revenue;
     }
 
+    // Reports - Total bookings over period
+    public int getTotalBookings(java.util.Date startDate, java.util.Date endDate) throws SQLException {
+        int count = 0;
+        String sql = "SELECT COUNT(*) as count FROM Reservations WHERE CheckIn >= ? AND CheckOut <= ?";
+        try (Connection con = DBUtil.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setDate(1, new java.sql.Date(startDate.getTime()));
+            ps.setDate(2, new java.sql.Date(endDate.getTime()));
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt("count");
+                }
+            }
+        }
+        return count;
+    }
+
     // Check room availability
     public boolean isRoomAvailable(String roomNumber, java.util.Date checkInDate, java.util.Date checkOutDate) throws SQLException {
         String sql = "SELECT COUNT(*) FROM Reservations WHERE RoomNumber = ? AND ((CheckIn <= ? AND CheckOut >= ?) OR (CheckIn <= ? AND CheckOut >= ?))";
